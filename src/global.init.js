@@ -6,5 +6,6 @@ var globalInit = function(options){
     globalInitialized = true;
     $(document)
     .bind('keydown', keydownHandler)
-    .bind('click', globalClickHandler);
+    .bind('click', globalClickHandler)
+    .bind('mousedown', globalMousedownHandler);
 };
