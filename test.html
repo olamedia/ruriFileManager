@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <script src="jquery-1.6.1.min.js" type="text/javascript"></script>
+        <script src="build/filemanager.js" type="text/javascript"></script>
+        <link type="text/css" rel="stylesheet" href="filemanager.css" />
+        <script type="text/javascript">
+            $(function(){
+                $('#explorer').explorer({
+                    api: '/api1/'
+                });
+                $('#explorer2').explorer({
+                    api: '/api2/'
+                });
+                $('.explorer').each(function(){
+                    console.log(this.id, this);
+                    console.dir(this);
+                });
+            });
+        </script>
+    </head>
+    <body>
+        <div style="padding: 30px;">
+            <ul id="explorer" class="explorer">
+                <li>
+                    <a href="#clicked">
+                        <span class="icon">
+                            <img src="folder_yellow.png" />
+                        </span>
+                        <span class="caption">{caption text}</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#clicked">
+                        <span class="icon">
+                            <img src="folder_yellow.png" />
+                        </span>
+                        <span class="caption">{very very very very very very very very very very long caption text}</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#clicked">
+                        <span class="icon">
+                            <img src="folder_yellow.png" />
+                        </span>
+                        <span class="caption">{caption text}</span>
+                    </a>
+                </li>
+            </ul>
+            <ul id="explorer2" class="explorer">
+                <li>
+                    <a href="#clicked">
+                        <span class="icon">
+                            <img src="folder_yellow.png" />
+                        </span>
+                        <span class="caption">{caption text}</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#clicked">
+                        <span class="icon">
+                            <img src="folder_yellow.png" />
+                        </span>
+                        <span class="caption">{very very very very very very very very very very long caption text}</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#clicked">
+                        <span class="icon">
+                            <img src="folder_yellow.png" />
+                        </span>
+                        <span class="caption">{caption text}</span>
+                    </a>
+                </li>
+            </ul>
+            <textarea style="width: 500px; height: 150px; padding: 10px;">Typing here SHOULD NOT be affected by file manager</textarea>
+        </div>
+    </body>
+</html>
