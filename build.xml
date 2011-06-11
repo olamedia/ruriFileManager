@@ -4,28 +4,35 @@
     <property name="build" location="build"/>
     <property name="dist" location="dist"/>
     <target name="all" depends="filemanager">
+        <makeurl file="ibuki.gif" property="splash"/>
+        <splash imageurl="${splash}" />
     </target>
     <target name="init">
         <tstamp/>
         <mkdir dir="${build}"/>
     </target>
     <target name="utility" depends="init">
-        <concat destfile="${build}/utility.js" fixlastline="true" encoding="utf8" outputencoding="utf8">
+        <concat destfile="${build}/utility.js" fixlastline="true" encoding="UTF-8" outputencoding="UTF-8">
             <filelist id="utility">
                 <file name="${src}/defaults.js"></file>
                 <file name="${src}/keyString.js"></file>
+                <file name="${src}/global.init.js"></file>
             </filelist>
         </concat>
     </target>
+    <target name="explorer" depends="init">
+        <loadfile property="explorer.template" srcfile="${src}/explorer.js" encoding="UTF-8"></loadfile>
+    </target>
     <target name="handlers" depends="init">
-        <concat destfile="${build}/handlers.js" fixlastline="true" encoding="utf8" outputencoding="utf8">
+        <concat destfile="${build}/handlers.js" fixlastline="true" encoding="UTF-8" outputencoding="UTF-8">
             <filelist id="handlers">
                 <file name="${src}/handlers/keydownHandler.js"></file>
+                <file name="${src}/handlers/globalClickHandler.js"></file>
             </filelist>
         </concat>
     </target>
     <target name="filemanager" depends="init,utility,handlers">
-        <concat destfile="${build}/filemanager.js" fixlastline="true" encoding="utf8" outputencoding="utf8" overwrite="true">
+        <concat destfile="${build}/filemanager.js" fixlastline="true" encoding="UTF-8" outputencoding="UTF-8" overwrite="true">
             <filelist id="structure">
                 <file name="${src}/header.js"></file>
                 <file name="${build}/utility.js"></file>
