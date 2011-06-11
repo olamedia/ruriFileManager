@@ -28,6 +28,7 @@
             <filelist id="handlers">
                 <file name="${src}/handlers/keydownHandler.js"></file>
                 <file name="${src}/handlers/globalClickHandler.js"></file>
+                <file name="${src}/handlers/globalMousedownHandler.js"></file>
             </filelist>
         </concat>
     </target>
