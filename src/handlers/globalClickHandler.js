@@ -1,3 +1,4 @@
 var globalClickHandler = function(e){
-    deactivateExplorers();
+    console.log('global click', e);
+    
 };

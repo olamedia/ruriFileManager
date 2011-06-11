@@ -14,7 +14,7 @@ var folderExplorer = function(list, options){
 };
 var folderExplorerPrototype = {
     api: null,
-    list: null,
+    list: null, // HTMLUListElement
     active: false,
     /** @include methods **/
     onDomChange: function(){
@@ -24,12 +24,15 @@ var folderExplorerPrototype = {
         deactivateExplorers(); // deactivate all explorers
         this.active = true;
         activeExplorer = this;
+        $(this.list).removeClass('files-list-inactive').addClass('files-list-active');
     },
     deactivate: function(){
-        this.active = false;
+        this.active = false
+        $(this.list).addClass('files-list-inactive').removeClass('files-list-active');
     },
     bind: function(){
-        
+        $(this.list).bind('mousedown', listMousedownHandler);
+        $(this.list).find('li').bind('mousedown', listItemMousedownHandler);
     },
     call: function(method){
         arguments.shift();
@@ -46,6 +49,7 @@ var folderExplorerPrototype = {
             return false;
         }
         explorerInstances.push(this);
+        $(this.list).addClass('files-list');
         this.bind();
         this.activate(); // activate last initialized explorer
         return true;
