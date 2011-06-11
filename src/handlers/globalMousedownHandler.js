@@ -1,3 +1,6 @@
 var globalMousedownHandler = function(e){
-    finishRename(); // any mousedown outside of list forces finishRename
+    // any mousedown outside of list forces finishRename
+    if (activeExplorer !== null){
+        activeExplorer.finishRename();
+    }
 };

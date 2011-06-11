@@ -20,8 +20,13 @@
             </filelist>
         </concat>
     </target>
-    <target name="explorer" depends="init">
-        <loadfile property="explorer.template" srcfile="${src}/explorer.js" encoding="UTF-8"></loadfile>
+    <target name="explorerMethods" depends="init">
+        
+    </target>
+    <target name="explorer" depends="init,explorerMethods">
+        <copyfile src="${src}/explorer/template.js" dest="${build}/explorer.js" />
+        <loadfile property="explorer.methods" srcfile="${build}/explorer.methods.js" encoding="UTF-8"></loadfile>
+        <replace file="${build}/explorer.js" token="/** @include methods **/" value="${explorer.methods}" />
     </target>
     <target name="handlers" depends="init">
         <concat destfile="${build}/handlers.js" fixlastline="true" encoding="UTF-8" outputencoding="UTF-8">
