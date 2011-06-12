@@ -30,6 +30,8 @@ var keydownHandler = function(e){
         'CTRL+X': 'cut',
         'CTRL+V': 'paste',
         'CTRL+ALT+N': 'createFolder'
+        // TAB WHILE RENAMING = SWITCH TO RENAME NEXT IN LIST
+        // SHIFT + LEFT/RIGHT = EXPAND SELECTION
     };
     
     if (typeof methods[key] !== 'undefined'){
