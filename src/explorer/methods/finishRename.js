@@ -6,4 +6,22 @@ finishRename: function(e){
             return false;
         }
     }
+    if (renaming){
+        renaming = false;
+        $(this.list).find("li:has(textarea)").each(function(){
+            var li = $(this);
+            var ta = li.find('textarea');
+            var caption = li.find('.caption');
+            caption.text(ta.val());
+            /*if (li.isFolder()){
+                $.post(apiEndPoint + 'folder/' + li.attr('id') + '/rename', {
+                    name: caption.text()
+                    });
+            }else{
+                $.post(apiEndPoint + 'file/' + li.attr('id') + '/rename', {
+                    name: caption.text()
+                    });
+            }*/
+        });
+    }
 }
