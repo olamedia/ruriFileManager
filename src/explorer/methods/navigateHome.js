@@ -1,3 +1,5 @@
 navigateHome: function(){
-    console.log('TODO navigateHome', this.list.id);
+    console.log('navigateHome', this.list.id);
+    this.deselect();
+    $(this.list).find('li a').first().addClass('selected');
 }

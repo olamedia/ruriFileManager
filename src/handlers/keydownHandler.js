@@ -3,7 +3,7 @@
 var keydownHandler = function(e){
     
     var key = keyString(e);
-    
+    console.log('keydown', key, e);
     if (key === 'ENTER'){
         if (renaming){
             finishRename();

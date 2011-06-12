@@ -13,6 +13,8 @@ var keyString = function(e){
     var special = {
         8: 'BACKSPACE',
         13: 'ENTER',
+        35: 'END',
+        36: 'HOME',
         37: 'LEFT',
         38: 'UP',
         39: 'RIGHT',
