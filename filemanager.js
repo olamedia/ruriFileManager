@@ -140,7 +140,12 @@ var listItemMousedownHandler = function(e){
     console.log('list item mousedown', e);
     // Allow passing to listMousedownHandler to activate list
     var li = e.currentTarget;
-    li.parentNode.yukiFolderExplorer.select(e.currentTarget);
+    var explorer = li.parentNode.yukiFolderExplorer;
+    if (e.shiftKey){
+        explorer.selectRange(e.currentTarget);
+    }else{
+        explorer.select(e.currentTarget);
+    }
 };
 var listMousedownHandler = function(e){
     console.log('list mousedown', e);
@@ -325,6 +330,23 @@ var folderExplorerPrototype = {
 },selectAll: function(){
     console.log('selectAll', this.list.id);
     $(this.list).find('a').addClass('selected');
+},selectRange: function(endLi){
+    var $startLi = $(this.list).find('li:has(a.selected)').last();
+    if (!$startLi.length){
+        // simply select one item
+        this.select(endLi);
+        return;
+    }
+    //var startLi = $startLi.get(0);
+    $(this.list).find('a').removeClass('selected');
+    var id = endLi.id;
+    if ($startLi.nextAll().filter('li[id="' + id + '"]').length){
+        // endLi is after startLi
+        $startLi.nextUntil('li[id="' + id + '"]').andSelf().add(endLi).find('a').addClass('selected');
+    }else{
+        $startLi.prevUntil('li[id="' + id + '"]').andSelf().add(endLi).find('a').addClass('selected');
+    }
+//$(li).find('a').addClass('selected');
 },startRename: function(){
     console.log('startRename', this.list.id);
     var li = $(this.list).find('li:has(a.selected)').first();
