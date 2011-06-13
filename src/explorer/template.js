@@ -31,6 +31,47 @@ var folderExplorerPrototype = {
         activeExplorer = this;
         $(this.list).removeClass('files-list-inactive').addClass('files-list-active');
     },
+    refresh: function(){
+        var explorer = this;
+        var id = this.list.id;
+        explorer.apiCall({
+            action: 'list', 
+            id: id
+        }, function(response){
+            console.log('response', response);
+            if (response.status !== 0){
+                console.error(response);
+            }else{
+                explorer.loadList(id, response.result);
+                console.log(response);
+            }
+        });
+    },
+    upload5: function(file, targetId){
+        if (!targetId){
+            targetId = this.list.id;
+        }
+        // TODO check file drop support
+        var self = this;
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", this.api);
+        xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
+        xhr.setRequestHeader("X-File-Name", file.fileName);
+        xhr.setRequestHeader("X-File-Size", file.fileSize);
+        xhr.setRequestHeader("X-Target-Id", targetId);
+        xhr.setRequestHeader("Content-Type", "multipart/form-data");
+        xhr.onload = function() { 
+            /* If we got an error display it. */
+            if (xhr.responseText && xhr.responseText !== '{"status":0}') {
+                console.error(xhr.responseText);
+            }else{
+                self.refresh();
+            }
+        };
+        // event.dataTransfer.mozGetDataAt("application/x-moz-file", 0)
+        // Starting with Firefox 3.5 Gecko 1.9.2, you may also specify an DOM File
+        xhr.send(file); 
+    },
     deactivate: function(){
         this.active = false
         $(this.list).addClass('files-list-inactive').removeClass('files-list-active');
@@ -38,6 +79,12 @@ var folderExplorerPrototype = {
     bind: function(skipSelf){
         if (!skipSelf){
             $(this.list).bind('mousedown', listMousedownHandler);
+            $(this.list).bind('drop', listDropHandler);
+            this.list.ondragenter = this.list.ondragover = function (e) {
+                e.preventDefault();
+                e.dataTransfer.dropEffect = 'copy';
+                return false;
+            };
         }
         $(this.list).find('li').bind('mousedown', listItemMousedownHandler);
         $(this.list).find('a')
