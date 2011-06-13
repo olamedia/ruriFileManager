@@ -1,7 +1,9 @@
 loadList: function(id, list){
     console.log('load list', this.list.id);
     this.list.id = id;
-    var ul = $('<ul></ul>');
+    var ul = $(this.list);
+    ul.html('');
+    ul.attr('id', id);
     for (i=0;i<list.length;i++){
         item = list[i];
         var li = $('<li></li>');
@@ -32,6 +34,6 @@ loadList: function(id, list){
         a.appendTo(li);
         li.appendTo(ul);
     }
-    $(this.list).html(ul.html());
+    //$(this.list).html(ul.html());
     this.bind(true);
 }

@@ -70,11 +70,13 @@ response: {
 GET LIST
 request: {
     action: 'list',
+    type: 'parent', (optional, gets parent list)
     id: '{folderId}'
 }
 
 responce: {
     status: 0,
+    id: '{folderId}', (useful when requesting parent)
     result: %list%
 }
 

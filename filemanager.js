@@ -234,7 +234,9 @@ var folderExplorerPrototype = {
 },loadList: function(id, list){
     console.log('load list', this.list.id);
     this.list.id = id;
-    var ul = $('<ul></ul>');
+    var ul = $(this.list);
+    ul.html('');
+    ul.attr('id', id);
     for (i=0;i<list.length;i++){
         item = list[i];
         var li = $('<li></li>');
@@ -265,7 +267,7 @@ var folderExplorerPrototype = {
         a.appendTo(li);
         li.appendTo(ul);
     }
-    $(this.list).html(ul.html());
+    //$(this.list).html(ul.html());
     this.bind(true);
 },navigateDown: function(){
     console.log('TODO navigateDown', this.list.id);
@@ -355,14 +357,14 @@ var folderExplorerPrototype = {
             id: id
         };
         if (parent){
-            args.type = 'parent';
+            args['type'] = 'parent';
         };
         explorer.apiCall(args, function(response){
             console.log('response', response);
             if (response.status !== 0){
                 console.error(response);
             }else{
-                explorer.loadList(id, response.result);
+                explorer.loadList(response.id, response.result);
                 console.log(response);
             }
         });

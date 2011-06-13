@@ -49,7 +49,7 @@ var folderExplorerPrototype = {
             if (response.status !== 0){
                 console.error(response);
             }else{
-                explorer.loadList(id, response.result);
+                explorer.loadList(response.id, response.result);
                 console.log(response);
             }
         });
