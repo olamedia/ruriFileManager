@@ -1,5 +1,4 @@
 startRename: function(){
-    console.log('startRename', this.list.id);
     var li = $(this.list).find('li:has(a.selected)').first();
     if (li.length){
         li.addClass('renaming');

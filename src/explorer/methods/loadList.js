@@ -1,5 +1,4 @@
 loadList: function(id, list){
-    console.log('load list', this.list.id);
     this.list.id = id;
     var ul = $(this.list);
     ul.html('');

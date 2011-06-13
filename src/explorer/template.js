@@ -45,16 +45,13 @@ var folderExplorerPrototype = {
             args['type'] = 'parent';
         };
         explorer.apiCall(args, function(response){
-            console.log('response', response);
             if (response.status !== 0){
                 console.error(response);
             }else{
                 explorer.loadList(response.id, response.result);
                 if (parent){
-                    console.log('select', id);
                     $(explorer.list).find('li[id="' + id + '"] a').addClass('selected');
                 }
-                console.log(response);
             }
         });
     },

@@ -17,7 +17,6 @@ deleteSelected: function(){
                 console.error(response);
             }else{
                 li.remove(); // remove from list
-                console.log(response);
             }
         });
     // TODO update list
