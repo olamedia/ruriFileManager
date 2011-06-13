@@ -143,6 +143,8 @@ var listItemMousedownHandler = function(e){
     var explorer = li.parentNode.yukiFolderExplorer;
     if (e.shiftKey){
         explorer.selectRange(e.currentTarget);
+    }else if(e.ctrlKey){
+        explorer.select(e.currentTarget, true);
     }else{
         explorer.select(e.currentTarget);
     }
@@ -324,9 +326,15 @@ var folderExplorerPrototype = {
     console.log('TODO navigateUp', this.list.id);
 },paste: function(){
     console.log('TODO paste', this.list.id);
-},select: function(li){
-    $(this.list).find('a').removeClass('selected');
-    $(li).find('a').addClass('selected');
+},select: function(li, add){
+    if (!add){
+        $(this.list).find('a').removeClass('selected');
+    }
+    if (add && $(this.list).find('a').length > 1){
+        $(li).find('a').toggleClass('selected');
+    }else{
+        $(li).find('a').addClass('selected');
+    }
 },selectAll: function(){
     console.log('selectAll', this.list.id);
     $(this.list).find('a').addClass('selected');
