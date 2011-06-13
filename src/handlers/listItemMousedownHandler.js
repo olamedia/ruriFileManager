@@ -5,6 +5,8 @@ var listItemMousedownHandler = function(e){
     var explorer = li.parentNode.yukiFolderExplorer;
     if (e.shiftKey){
         explorer.selectRange(e.currentTarget);
+    }else if(e.ctrlKey){
+        explorer.select(e.currentTarget, true);
     }else{
         explorer.select(e.currentTarget);
     }
