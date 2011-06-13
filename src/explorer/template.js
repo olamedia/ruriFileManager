@@ -20,6 +20,11 @@ var folderExplorerPrototype = {
     onDomChange: function(){
         console.log('TODO onDomChange', this.list.id);
     },
+    apiCall: function(request, callback){
+        if (this.api !== null){
+            $.post(this.api, request, callback, 'json');
+        }
+    },
     activate: function(){
         deactivateExplorers(); // deactivate all explorers
         this.active = true;
@@ -33,6 +38,9 @@ var folderExplorerPrototype = {
     bind: function(){
         $(this.list).bind('mousedown', listMousedownHandler);
         $(this.list).find('li').bind('mousedown', listItemMousedownHandler);
+        $(this.list).find('a')
+            .bind('mousedown', listItemAMousedownHandler)
+            .bind('click', listItemAClickHandler);
     },
     call: function(method){
         arguments.shift();

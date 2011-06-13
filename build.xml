@@ -50,13 +50,7 @@
     </target>
     <target name="handlers" depends="init">
         <concat destfile="${build}/handlers.js" fixlastline="true" encoding="UTF-8" outputencoding="UTF-8">
-            <filelist id="handlers">
-                <file name="${src}/handlers/keydownHandler.js"></file>
-                <file name="${src}/handlers/globalClickHandler.js"></file>
-                <file name="${src}/handlers/globalMousedownHandler.js"></file>
-                <file name="${src}/handlers/listMousedownHandler.js"></file>
-                <file name="${src}/handlers/listItemMousedownHandler.js"></file>
-            </filelist>
+            <fileset id="handlers" dir="${src}/handlers" includes="*.js" />
         </concat>
     </target>
     <target name="filemanager" depends="init,explorer,utility,handlers">

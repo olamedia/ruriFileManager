@@ -8,20 +8,30 @@ finishRename: function(e){
     }
     if (renaming){
         renaming = false;
+        var self = this;
         $(this.list).find("li:has(textarea)").each(function(){
             var li = $(this);
             var ta = li.find('textarea');
+            var name = ta.val();
             var caption = li.find('.caption');
-            caption.text(ta.val());
-            /*if (li.isFolder()){
-                $.post(apiEndPoint + 'folder/' + li.attr('id') + '/rename', {
-                    name: caption.text()
-                    });
-            }else{
-                $.post(apiEndPoint + 'file/' + li.attr('id') + '/rename', {
-                    name: caption.text()
-                    });
-            }*/
+            caption.text(name);
+            var id = this.id;
+            var type = 'file';
+            if (li.hasClass('folder')){
+                type = 'folder';
+            }
+            self.apiCall({
+                action:'rename',
+                type: type,
+                id: id,
+                name: name
+            }, function(data){
+                if (data.status !== 0){
+                    console.error(data);
+                }else{
+                    console.log(data);
+                }
+            });
         });
     }
 }
