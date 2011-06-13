@@ -1,0 +1,101 @@
+
+
+JSON
+
+All requests via POST to API url.
+
+PSEUDOCODE:
+    %name%  - macros
+    |       - OR
+    {name}  - value (must be replaced by real value)
+    {},[]   - json object,array
+    example:
+        'folder' - string folder
+        '{folderId}' - string, folder identifier ('1', '4352', 'xdsfh', 'my-folder3434' etc)
+        'folder|file' - string 'folder' or string 'file'
+MACROS
+%folder%
+{
+    type: 'folder',
+    id: '{folderId}',
+    parentId: '{folderId}', (response only, activates navigateParent ability)
+    name: '{name}', (response only)
+    icon: '{url}' (optional, response only)
+    href: '{url}' (optional, response only)
+}
+%file%
+{
+    type: 'file',
+    id: '{fileId}',
+    name: '{name}', (response only)
+    icon: '{url}' (optional, response only)
+    href: '{url}' (optional, response only)
+}
+%list%
+[
+    %folder%|%file%
+    ...
+    %folder%|%file%
+]
+
+
+status: 0 = SUCCESS
+        1 = incorrect request
+        4 = resource not found
+any other status means error
+
+
+
+CREATE:
+request: {
+    action: 'create',
+    type: 'folder|file'
+}
+response: {
+    status: 0,
+    result: %folder|file%
+}
+
+RENAME:
+request: {
+    action: 'rename',
+    type: 'folder|file',
+    id: '{folderId|fileId}',
+    name: '{newName}'
+}
+response: {
+    status: 0
+}
+
+GET LIST
+request: {
+    action: 'list',
+    id: '{folderId}'
+}
+
+responce: {
+    status: 0,
+    result: %list%
+}
+
+DELETE
+request: {
+    action: 'delete',
+    type: 'folder|file',
+    id: '{folderId|fileId}'
+}
+response: {
+    status: 0
+}
+
+
+MOVE
+request: {
+    action: 'move',
+    type: 'folder|file',
+    id: '{folderId|fileId}',
+    targetId: '{folderId}'
+}
+response: {
+    status: 0
+}

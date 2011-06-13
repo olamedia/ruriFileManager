@@ -35,12 +35,14 @@ var folderExplorerPrototype = {
         this.active = false
         $(this.list).addClass('files-list-inactive').removeClass('files-list-active');
     },
-    bind: function(){
-        $(this.list).bind('mousedown', listMousedownHandler);
+    bind: function(skipSelf){
+        if (!skipSelf){
+            $(this.list).bind('mousedown', listMousedownHandler);
+        }
         $(this.list).find('li').bind('mousedown', listItemMousedownHandler);
         $(this.list).find('a')
-            .bind('mousedown', listItemAMousedownHandler)
-            .bind('click', listItemAClickHandler);
+        .bind('mousedown', listItemAMousedownHandler)
+        .bind('click', listItemAClickHandler);
     },
     call: function(method){
         arguments.shift();
