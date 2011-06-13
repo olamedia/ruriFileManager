@@ -23,6 +23,7 @@ var keydownHandler = function(e){
         'HOME': 'navigateHome',
         'END': 'navigateEnd',
         'BACKSPACE': 'navigateParent',
+        'ENTER': 'navigateSelected',
         'F2': 'startRename',
         'DEL': 'deleteSelected',
         'CTRL+A': 'selectAll',

@@ -1,0 +1,29 @@
+DEL
+    delete selected
+BACKSPACE
+    open parent folder
+LEFT, RIGHT, END, HOME
+    navigate list
+F2
+    start rename
+MOUSE DOWN 
+    on item
+        select item
+    on list anywhere
+        activates list
+    outside of list
+        deactivates list
+    when renaming, outside of textarea
+        finish rename
+DOUBLE CLICK
+    on file
+        open file in new tab
+    on folder
+        open folder
+ENTER - simulate doubleclick
+DRAG
+    to list
+        upload file(s)
+CTRL+A
+    select all
+

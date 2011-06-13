@@ -50,6 +50,10 @@ var folderExplorerPrototype = {
                 console.error(response);
             }else{
                 explorer.loadList(response.id, response.result);
+                if (parent){
+                    console.log('select', id);
+                    $(explorer.list).find('li[id="' + id + '"] a').addClass('selected');
+                }
                 console.log(response);
             }
         });

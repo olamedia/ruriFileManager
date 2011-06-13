@@ -17,6 +17,12 @@ var listItemDoubleClickHandler = function(e){
             }
         });
     }else{
-        allowClick = true;
+        if (e.type == 'internal'){
+            //allowClick = true;
+            //var a = $(li).find('a').get(0);
+            //a.dispatchEvent(e);
+        }else{
+            allowClick = true;
+        }
     }
 }
