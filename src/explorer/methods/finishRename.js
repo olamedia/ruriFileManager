@@ -25,11 +25,11 @@ finishRename: function(e){
                 type: type,
                 id: id,
                 name: name
-            }, function(data){
-                if (data.status !== 0){
-                    console.error(data);
+            }, function(response){
+                if (response.status !== 0){
+                    console.error(response);
                 }else{
-                    console.log(data);
+                    console.log(response);
                 }
             });
         });
