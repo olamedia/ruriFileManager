@@ -36,6 +36,7 @@ var keydownHandler = function(e){
         'HOME': 'navigateHome',
         'END': 'navigateEnd',
         'BACKSPACE': 'navigateParent',
+        'ENTER': 'navigateSelected',
         'F2': 'startRename',
         'DEL': 'deleteSelected',
         'CTRL+A': 'selectAll',
@@ -126,7 +127,13 @@ var listItemDoubleClickHandler = function(e){
             }
         });
     }else{
-        allowClick = true;
+        if (e.type == 'internal'){
+            //allowClick = true;
+            //var a = $(li).find('a').get(0);
+            //a.dispatchEvent(e);
+        }else{
+            allowClick = true;
+        }
     }
 }
 var listItemMousedownHandler = function(e){
@@ -280,11 +287,12 @@ var folderExplorerPrototype = {
     this.deselect();
     $(this.list).find('li a').first().addClass('selected');
 },navigateLeft: function(e){
-    console.log('navigateLeft', this.list.id);
     var a = $(this.list).find('li:has(a.selected)').first().prev().find('a');
+    this.deselect();
     if (a.length){
-        this.deselect();
         a.addClass('selected');
+    }else{
+        $(this.list).find('a').last().addClass('selected');
     }
 },navigateParent: function(e){
     // keyboard: BACKSPACE
@@ -293,16 +301,25 @@ var folderExplorerPrototype = {
 },navigateRight: function(){
     console.log('navigateRight', this.list.id);
     var a = $(this.list).find('li:has(a.selected)').last().next().find('a');
+    this.deselect();
     if (a.length){
-        this.deselect();
         a.addClass('selected');
+    }else{
+        $(this.list).find('a').first().addClass('selected');
+    }
+},navigateSelected: function(e){
+    // keyboard: ENTER
+    console.log('navigateSelected', this.list.id);
+    var a = $(activeExplorer.list).find('a.selected').first().get(0);
+    if (a){
+        activeExplorer.triggerMouse('dblclick', a);
+    //listItemDoubleClickHandler(evt);
     }
 },navigateUp: function(){
     console.log('TODO navigateUp', this.list.id);
 },paste: function(){
     console.log('TODO paste', this.list.id);
 },select: function(li){
-    console.log('select', this.list.id, li);
     $(this.list).find('a').removeClass('selected');
     $(li).find('a').addClass('selected');
 },selectAll: function(){
@@ -331,6 +348,26 @@ var folderExplorerPrototype = {
             e.stopPropagation(); // leaves only default action
         });
     };
+},triggerMouse: function(type, el, nat){
+    if (!nat){
+        if (type === 'click'){
+            this.triggerMouse('mousedown', el, true);
+            this.triggerMouse('mouseup', el, true);
+            this.triggerMouse('click', el, true);
+            return;
+        }else if (type === 'dblclick'){
+            this.triggerMouse('click', el);
+            this.triggerMouse('click', el);
+            return;
+        }
+    }
+    var evt = document.createEvent("MouseEvents");
+    evt.initMouseEvent(type, true, true, window,
+        0, 0, 0, 0, 0, 
+        false, false, false, false, 
+        0, null);
+    el.dispatchEvent(evt);
+    
 },
     onDomChange: function(){
         console.log('TODO onDomChange', this.list.id);
@@ -365,6 +402,10 @@ var folderExplorerPrototype = {
                 console.error(response);
             }else{
                 explorer.loadList(response.id, response.result);
+                if (parent){
+                    console.log('select', id);
+                    $(explorer.list).find('li[id="' + id + '"] a').addClass('selected');
+                }
                 console.log(response);
             }
         });
