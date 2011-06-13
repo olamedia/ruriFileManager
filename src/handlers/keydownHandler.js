@@ -4,17 +4,19 @@ var keydownHandler = function(e){
     
     var key = keyString(e);
     console.log('keydown', key, e);
-    if (key === 'ENTER'){
-        if (renaming){
-            finishRename();
-            return false;
-        }
-    }
     
-    if (activeExplorer === null || renaming){
+    
+    if (activeExplorer === null){
         return true; // skip events outside or while renaming
     }
-    
+    if (key === 'ENTER'){
+        e.preventDefault();
+        activeExplorer.finishRename();
+        return false;
+    }
+    if (renaming){
+        return true;
+    }
     var methods = {
         'LEFT': 'navigateLeft',
         'UP': 'navigateUp',
@@ -31,8 +33,8 @@ var keydownHandler = function(e){
         'CTRL+X': 'cut',
         'CTRL+V': 'paste',
         'CTRL+ALT+N': 'createFolder'
-        // TAB WHILE RENAMING = SWITCH TO RENAME NEXT IN LIST
-        // SHIFT + LEFT/RIGHT = EXPAND SELECTION
+    // TAB WHILE RENAMING = SWITCH TO RENAME NEXT IN LIST
+    // SHIFT + LEFT/RIGHT = EXPAND SELECTION
     };
     
     if (typeof methods[key] !== 'undefined'){
