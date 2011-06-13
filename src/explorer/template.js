@@ -31,13 +31,20 @@ var folderExplorerPrototype = {
         activeExplorer = this;
         $(this.list).removeClass('files-list-inactive').addClass('files-list-active');
     },
-    refresh: function(){
-        var explorer = this;
+    refresh: function(parent){
         var id = this.list.id;
-        explorer.apiCall({
+        this.getList(id, parent);
+    },
+    getList: function(id, parent){
+        var explorer = this;
+        var args = {
             action: 'list', 
             id: id
-        }, function(response){
+        };
+        if (parent){
+            args['type'] = 'parent';
+        };
+        explorer.apiCall(args, function(response){
             console.log('response', response);
             if (response.status !== 0){
                 console.error(response);

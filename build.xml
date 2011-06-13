@@ -54,7 +54,7 @@
         </concat>
     </target>
     <target name="filemanager" depends="init,explorer,utility,handlers">
-        <concat destfile="${build}/filemanager.js" fixlastline="true" encoding="UTF-8" outputencoding="UTF-8" overwrite="true">
+        <concat destfile="filemanager.js" fixlastline="true" encoding="UTF-8" outputencoding="UTF-8" overwrite="true">
             <filelist id="structure">
                 <file name="${src}/header.js"></file>
                 <file name="${build}/handlers.js"></file>

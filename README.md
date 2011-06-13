@@ -4,7 +4,7 @@ ruriFileManager
 
 
 
-build/filemanager.js - assembled source
+filemanager.js - assembled source
 
 build.xml is an Ant build script
 
